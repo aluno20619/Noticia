@@ -1,0 +1,59 @@
+﻿@model News.Models.Noticias
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Noticias</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Titulo" class="control-label"></label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Resumo" class="control-label"></label>
+                <input asp-for="Resumo" class="form-control" />
+                <span asp-validation-for="Resumo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Corpo" class="control-label"></label>
+                <input asp-for="Corpo" class="form-control" />
+                <span asp-validation-for="Corpo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Data_De_Publicacao" class="control-label"></label>
+                <input asp-for="Data_De_Publicacao" class="form-control" />
+                <span asp-validation-for="Data_De_Publicacao" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Visivel" /> @Html.DisplayNameFor(model => model.Visivel)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="UtilizadoresidFK" class="control-label"></label>
+                <select asp-for="UtilizadoresidFK" class="form-control" asp-items="ViewBag.UtilizadoresidFK"></select>
+                <span asp-validation-for="UtilizadoresidFK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
