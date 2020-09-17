@@ -189,7 +189,7 @@ namespace Noticia.Data.Migrations
                     b.ToTable("UserTokens");
                 });
 
-            modelBuilder.Entity("News.Models.Imagens", b =>
+            modelBuilder.Entity("Noticia.Models.Imagens", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -208,7 +208,7 @@ namespace Noticia.Data.Migrations
                     b.ToTable("Imagens");
                 });
 
-            modelBuilder.Entity("News.Models.NI", b =>
+            modelBuilder.Entity("Noticia.Models.NI", b =>
                 {
                     b.Property<int>("Imagensid")
                         .HasColumnType("int");
@@ -223,7 +223,7 @@ namespace Noticia.Data.Migrations
                     b.ToTable("NI");
                 });
 
-            modelBuilder.Entity("News.Models.NT", b =>
+            modelBuilder.Entity("Noticia.Models.NT", b =>
                 {
                     b.Property<int>("Topicosid")
                         .HasColumnType("int");
@@ -238,7 +238,7 @@ namespace Noticia.Data.Migrations
                     b.ToTable("NT");
                 });
 
-            modelBuilder.Entity("News.Models.Noticias", b =>
+            modelBuilder.Entity("Noticia.Models.Noticias", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -272,7 +272,7 @@ namespace Noticia.Data.Migrations
                     b.ToTable("Noticias");
                 });
 
-            modelBuilder.Entity("News.Models.Topicos", b =>
+            modelBuilder.Entity("Noticia.Models.Topicos", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -287,7 +287,7 @@ namespace Noticia.Data.Migrations
                     b.ToTable("Topicos");
                 });
 
-            modelBuilder.Entity("News.Models.Utilizadores", b =>
+            modelBuilder.Entity("Noticia.Models.Utilizadores", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -316,39 +316,39 @@ namespace Noticia.Data.Migrations
                     b.HasDiscriminator().HasValue("IdentityRole");
                 });
 
-            modelBuilder.Entity("News.Models.NI", b =>
+            modelBuilder.Entity("Noticia.Models.NI", b =>
                 {
-                    b.HasOne("News.Models.Imagens", "Imagens")
+                    b.HasOne("Noticia.Models.Imagens", "Imagens")
                         .WithMany("ListaNI")
                         .HasForeignKey("Imagensid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("News.Models.Noticias", "Noticias")
+                    b.HasOne("Noticia.Models.Noticias", "Noticias")
                         .WithMany("ListaNI")
                         .HasForeignKey("Noticiasid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("News.Models.NT", b =>
+            modelBuilder.Entity("Noticia.Models.NT", b =>
                 {
-                    b.HasOne("News.Models.Noticias", "Noticias")
+                    b.HasOne("Noticia.Models.Noticias", "Noticias")
                         .WithMany("ListaNT")
                         .HasForeignKey("Noticiasid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("News.Models.Topicos", "Topicos")
+                    b.HasOne("Noticia.Models.Topicos", "Topicos")
                         .WithMany("ListaNT")
                         .HasForeignKey("Topicosid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("News.Models.Noticias", b =>
+            modelBuilder.Entity("Noticia.Models.Noticias", b =>
                 {
-                    b.HasOne("News.Models.Utilizadores", "Utilizadoresid")
+                    b.HasOne("Noticia.Models.Utilizadores", "Utilizadoresid")
                         .WithMany("ListaNoticias")
                         .HasForeignKey("UtilizadoresidFK")
                         .OnDelete(DeleteBehavior.Cascade)

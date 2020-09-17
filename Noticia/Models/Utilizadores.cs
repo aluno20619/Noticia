@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace News.Models
+namespace Noticia.Models
 {
     public class Utilizadores
     {

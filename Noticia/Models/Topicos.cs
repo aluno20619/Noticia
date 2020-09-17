@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 /// </summary>
 /// 
 
-namespace News.Models
+namespace Noticia.Models
 {
 	public class Topicos
 	{

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using News.Models;
+using Noticia.Models;
 
 namespace Noticia.Data
 {
@@ -17,6 +18,10 @@ namespace Noticia.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
             modelBuilder.Entity<IdentityRole<string>>().ToTable("Roles");
             modelBuilder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
             modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims");

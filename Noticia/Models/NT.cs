@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 /// Summary description for Class1
 /// </summary>
 /// 
-namespace News.Models
+namespace Noticia.Models
 {
 	public class NT
 	{

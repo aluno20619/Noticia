@@ -10,23 +10,23 @@ using Noticia.Data;
 
 namespace Noticia.Controllers
 {
-    public class NoticiasController : Controller
+    public class NTsController : Controller
     {
-        private readonly NoticiaDbContext _context;
+        private readonly NoticiaDbContext db;
 
-        public NoticiasController(NoticiaDbContext context)
+        public NTsController(NoticiaDbContext context)
         {
-            _context = context;
+            db = context;
         }
 
-        // GET: Noticias
+        // GET: NTs
         public async Task<IActionResult> Index()
         {
-            var noticiaDbContext = _context.Noticias.Include(n => n.Utilizadoresid);
+            var noticiaDbContext = db.NT.Include(n => n.Noticias).Include(n => n.Topicos);
             return View(await noticiaDbContext.ToListAsync());
         }
 
-        // GET: Noticias/Details/5
+        // GET: NTs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +34,46 @@ namespace Noticia.Controllers
                 return NotFound();
             }
 
-            var noticias = await _context.Noticias
-                .Include(n => n.Utilizadoresid)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (noticias == null)
+            var nT = await db.NT
+                .Include(n => n.Noticias)
+                .Include(n => n.Topicos)
+                .FirstOrDefaultAsync(m => m.Topicosid == id);
+            if (nT == null)
             {
                 return NotFound();
             }
 
-            return View(noticias);
+            return View(nT);
         }
 
-        // GET: Noticias/Create
+        // GET: NTs/Create
         public IActionResult Create()
         {
-            ViewData["UtilizadoresidFK"] = new SelectList(_context.Utilizadores, "Id", "Email");
+            ViewData["Noticiasid"] = new SelectList(db.Noticias, "Id", "Id");
+            ViewData["Topicosid"] = new SelectList(db.Topicos, "Id", "Id");
+            ViewData["TopicosNome"] = new SelectList(db.Topicos, "Id", "Nome");
             return View();
         }
 
-        // POST: Noticias/Create
+        // POST: NTs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Titulo,Resumo,Corpo,Data_De_Publicacao,Visivel,UtilizadoresidFK")] Noticias noticias)
+        public async Task<IActionResult> Create([Bind("Noticiasid,Topicosid")] NT nT)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(noticias);
-                await _context.SaveChangesAsync();
+                db.Add(nT);
+                await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UtilizadoresidFK"] = new SelectList(_context.Utilizadores, "Id", "Email", noticias.UtilizadoresidFK);
-            return View(noticias);
+            ViewData["Noticiasid"] = new SelectList(db.Noticias, "Id", "Id", nT.Noticiasid);
+            ViewData["Topicosid"] = new SelectList(db.Topicos, "Id", "Id", nT.Topicosid);
+            return View(nT);
         }
 
-        // GET: Noticias/Edit/5
+        // GET: NTs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +81,24 @@ namespace Noticia.Controllers
                 return NotFound();
             }
 
-            var noticias = await _context.Noticias.FindAsync(id);
-            if (noticias == null)
+            var nT = await db.NT.FindAsync(id);
+            if (nT == null)
             {
                 return NotFound();
             }
-            ViewData["UtilizadoresidFK"] = new SelectList(_context.Utilizadores, "Id", "Email", noticias.UtilizadoresidFK);
-            return View(noticias);
+            ViewData["Noticiasid"] = new SelectList(db.Noticias, "Id", "Id", nT.Noticiasid);
+            ViewData["Topicosid"] = new SelectList(db.Topicos, "Id", "Id", nT.Topicosid);
+            return View(nT);
         }
 
-        // POST: Noticias/Edit/5
+        // POST: NTs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Resumo,Corpo,Data_De_Publicacao,Visivel,UtilizadoresidFK")] Noticias noticias)
+        public async Task<IActionResult> Edit(int id, [Bind("Noticiasid,Topicosid")] NT nT)
         {
-            if (id != noticias.Id)
+            if (id != nT.Topicosid)
             {
                 return NotFound();
             }
@@ -102,12 +107,12 @@ namespace Noticia.Controllers
             {
                 try
                 {
-                    _context.Update(noticias);
-                    await _context.SaveChangesAsync();
+                    db.Update(nT);
+                    await db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NoticiasExists(noticias.Id))
+                    if (!NTExists(nT.Topicosid))
                     {
                         return NotFound();
                     }
@@ -118,11 +123,12 @@ namespace Noticia.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UtilizadoresidFK"] = new SelectList(_context.Utilizadores, "Id", "Email", noticias.UtilizadoresidFK);
-            return View(noticias);
+            ViewData["Noticiasid"] = new SelectList(db.Noticias, "Id", "Id", nT.Noticiasid);
+            ViewData["Topicosid"] = new SelectList(db.Topicos, "Id", "Id", nT.Topicosid);
+            return View(nT);
         }
 
-        // GET: Noticias/Delete/5
+        // GET: NTs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,31 +136,32 @@ namespace Noticia.Controllers
                 return NotFound();
             }
 
-            var noticias = await _context.Noticias
-                .Include(n => n.Utilizadoresid)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (noticias == null)
+            var nT = await db.NT
+                .Include(n => n.Noticias)
+                .Include(n => n.Topicos)
+                .FirstOrDefaultAsync(m => m.Topicosid == id);
+            if (nT == null)
             {
                 return NotFound();
             }
 
-            return View(noticias);
+            return View(nT);
         }
 
-        // POST: Noticias/Delete/5
+        // POST: NTs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var noticias = await _context.Noticias.FindAsync(id);
-            _context.Noticias.Remove(noticias);
-            await _context.SaveChangesAsync();
+            var nT = await db.NT.FindAsync(id);
+            db.NT.Remove(nT);
+            await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool NoticiasExists(int id)
+        private bool NTExists(int id)
         {
-            return _context.Noticias.Any(e => e.Id == id);
+            return db.NT.Any(e => e.Topicosid == id);
         }
     }
 }

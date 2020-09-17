@@ -10,22 +10,22 @@ using Noticia.Data;
 
 namespace Noticia.Controllers
 {
-    public class UtilizadoresController : Controller
+    public class TopicosController : Controller
     {
         private readonly NoticiaDbContext _context;
 
-        public UtilizadoresController(NoticiaDbContext context)
+        public TopicosController(NoticiaDbContext context)
         {
             _context = context;
         }
 
-        // GET: Utilizadores
+        // GET: Topicos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Utilizadores.ToListAsync());
+            return View(await _context.Topicos.ToListAsync());
         }
 
-        // GET: Utilizadores/Details/5
+        // GET: Topicos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace Noticia.Controllers
                 return NotFound();
             }
 
-            var utilizadores = await _context.Utilizadores
+            var topicos = await _context.Topicos
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (utilizadores == null)
+            if (topicos == null)
             {
                 return NotFound();
             }
 
-            return View(utilizadores);
+            return View(topicos);
         }
 
-        // GET: Utilizadores/Create
+        // GET: Topicos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Utilizadores/Create
+        // POST: Topicos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Email")] Utilizadores utilizadores)
+        public async Task<IActionResult> Create([Bind("Id,Nome")] Topicos topicos)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(utilizadores);
+                _context.Add(topicos);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(utilizadores);
+            return View(topicos);
         }
 
-        // GET: Utilizadores/Edit/5
+        // GET: Topicos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace Noticia.Controllers
                 return NotFound();
             }
 
-            var utilizadores = await _context.Utilizadores.FindAsync(id);
-            if (utilizadores == null)
+            var topicos = await _context.Topicos.FindAsync(id);
+            if (topicos == null)
             {
                 return NotFound();
             }
-            return View(utilizadores);
+            return View(topicos);
         }
 
-        // POST: Utilizadores/Edit/5
+        // POST: Topicos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Email")] Utilizadores utilizadores)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome")] Topicos topicos)
         {
-            if (id != utilizadores.Id)
+            if (id != topicos.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace Noticia.Controllers
             {
                 try
                 {
-                    _context.Update(utilizadores);
+                    _context.Update(topicos);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UtilizadoresExists(utilizadores.Id))
+                    if (!TopicosExists(topicos.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace Noticia.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(utilizadores);
+            return View(topicos);
         }
 
-        // GET: Utilizadores/Delete/5
+        // GET: Topicos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace Noticia.Controllers
                 return NotFound();
             }
 
-            var utilizadores = await _context.Utilizadores
+            var topicos = await _context.Topicos
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (utilizadores == null)
+            if (topicos == null)
             {
                 return NotFound();
             }
 
-            return View(utilizadores);
+            return View(topicos);
         }
 
-        // POST: Utilizadores/Delete/5
+        // POST: Topicos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var utilizadores = await _context.Utilizadores.FindAsync(id);
-            _context.Utilizadores.Remove(utilizadores);
+            var topicos = await _context.Topicos.FindAsync(id);
+            _context.Topicos.Remove(topicos);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UtilizadoresExists(int id)
+        private bool TopicosExists(int id)
         {
-            return _context.Utilizadores.Any(e => e.Id == id);
+            return _context.Topicos.Any(e => e.Id == id);
         }
     }
 }

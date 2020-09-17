@@ -10,22 +10,23 @@ using Noticia.Data;
 
 namespace Noticia.Controllers
 {
-    public class UtilizadoresController : Controller
+    public class NIsController : Controller
     {
         private readonly NoticiaDbContext _context;
 
-        public UtilizadoresController(NoticiaDbContext context)
+        public NIsController(NoticiaDbContext context)
         {
             _context = context;
         }
 
-        // GET: Utilizadores
+        // GET: NIs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Utilizadores.ToListAsync());
+            var noticiaDbContext = _context.NI.Include(n => n.Imagens).Include(n => n.Noticias);
+            return View(await noticiaDbContext.ToListAsync());
         }
 
-        // GET: Utilizadores/Details/5
+        // GET: NIs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +34,45 @@ namespace Noticia.Controllers
                 return NotFound();
             }
 
-            var utilizadores = await _context.Utilizadores
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (utilizadores == null)
+            var nI = await _context.NI
+                .Include(n => n.Imagens)
+                .Include(n => n.Noticias)
+                .FirstOrDefaultAsync(m => m.Imagensid == id);
+            if (nI == null)
             {
                 return NotFound();
             }
 
-            return View(utilizadores);
+            return View(nI);
         }
 
-        // GET: Utilizadores/Create
+        // GET: NIs/Create
         public IActionResult Create()
         {
+            ViewData["Imagensid"] = new SelectList(_context.Imagens, "Id", "Id");
+            ViewData["Noticiasid"] = new SelectList(_context.Noticias, "Id", "Corpo");
             return View();
         }
 
-        // POST: Utilizadores/Create
+        // POST: NIs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Email")] Utilizadores utilizadores)
+        public async Task<IActionResult> Create([Bind("Noticiasid,Imagensid")] NI nI)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(utilizadores);
+                _context.Add(nI);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(utilizadores);
+            ViewData["Imagensid"] = new SelectList(_context.Imagens, "Id", "Id", nI.Imagensid);
+            ViewData["Noticiasid"] = new SelectList(_context.Noticias, "Id", "Corpo", nI.Noticiasid);
+            return View(nI);
         }
 
-        // GET: Utilizadores/Edit/5
+        // GET: NIs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +80,24 @@ namespace Noticia.Controllers
                 return NotFound();
             }
 
-            var utilizadores = await _context.Utilizadores.FindAsync(id);
-            if (utilizadores == null)
+            var nI = await _context.NI.FindAsync(id);
+            if (nI == null)
             {
                 return NotFound();
             }
-            return View(utilizadores);
+            ViewData["Imagensid"] = new SelectList(_context.Imagens, "Id", "Id", nI.Imagensid);
+            ViewData["Noticiasid"] = new SelectList(_context.Noticias, "Id", "Corpo", nI.Noticiasid);
+            return View(nI);
         }
 
-        // POST: Utilizadores/Edit/5
+        // POST: NIs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Email")] Utilizadores utilizadores)
+        public async Task<IActionResult> Edit(int id, [Bind("Noticiasid,Imagensid")] NI nI)
         {
-            if (id != utilizadores.Id)
+            if (id != nI.Imagensid)
             {
                 return NotFound();
             }
@@ -97,12 +106,12 @@ namespace Noticia.Controllers
             {
                 try
                 {
-                    _context.Update(utilizadores);
+                    _context.Update(nI);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UtilizadoresExists(utilizadores.Id))
+                    if (!NIExists(nI.Imagensid))
                     {
                         return NotFound();
                     }
@@ -113,10 +122,12 @@ namespace Noticia.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(utilizadores);
+            ViewData["Imagensid"] = new SelectList(_context.Imagens, "Id", "Id", nI.Imagensid);
+            ViewData["Noticiasid"] = new SelectList(_context.Noticias, "Id", "Corpo", nI.Noticiasid);
+            return View(nI);
         }
 
-        // GET: Utilizadores/Delete/5
+        // GET: NIs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +135,32 @@ namespace Noticia.Controllers
                 return NotFound();
             }
 
-            var utilizadores = await _context.Utilizadores
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (utilizadores == null)
+            var nI = await _context.NI
+                .Include(n => n.Imagens)
+                .Include(n => n.Noticias)
+                .FirstOrDefaultAsync(m => m.Imagensid == id);
+            if (nI == null)
             {
                 return NotFound();
             }
 
-            return View(utilizadores);
+            return View(nI);
         }
 
-        // POST: Utilizadores/Delete/5
+        // POST: NIs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var utilizadores = await _context.Utilizadores.FindAsync(id);
-            _context.Utilizadores.Remove(utilizadores);
+            var nI = await _context.NI.FindAsync(id);
+            _context.NI.Remove(nI);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UtilizadoresExists(int id)
+        private bool NIExists(int id)
         {
-            return _context.Utilizadores.Any(e => e.Id == id);
+            return _context.NI.Any(e => e.Imagensid == id);
         }
     }
 }

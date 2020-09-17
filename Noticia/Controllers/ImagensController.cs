@@ -10,22 +10,22 @@ using Noticia.Data;
 
 namespace Noticia.Controllers
 {
-    public class UtilizadoresController : Controller
+    public class ImagensController : Controller
     {
         private readonly NoticiaDbContext _context;
 
-        public UtilizadoresController(NoticiaDbContext context)
+        public ImagensController(NoticiaDbContext context)
         {
             _context = context;
         }
 
-        // GET: Utilizadores
+        // GET: Imagens
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Utilizadores.ToListAsync());
+            return View(await _context.Imagens.ToListAsync());
         }
 
-        // GET: Utilizadores/Details/5
+        // GET: Imagens/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace Noticia.Controllers
                 return NotFound();
             }
 
-            var utilizadores = await _context.Utilizadores
+            var imagens = await _context.Imagens
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (utilizadores == null)
+            if (imagens == null)
             {
                 return NotFound();
             }
 
-            return View(utilizadores);
+            return View(imagens);
         }
 
-        // GET: Utilizadores/Create
+        // GET: Imagens/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Utilizadores/Create
+        // POST: Imagens/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Email")] Utilizadores utilizadores)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Legenda")] Imagens imagens)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(utilizadores);
+                _context.Add(imagens);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(utilizadores);
+            return View(imagens);
         }
 
-        // GET: Utilizadores/Edit/5
+        // GET: Imagens/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace Noticia.Controllers
                 return NotFound();
             }
 
-            var utilizadores = await _context.Utilizadores.FindAsync(id);
-            if (utilizadores == null)
+            var imagens = await _context.Imagens.FindAsync(id);
+            if (imagens == null)
             {
                 return NotFound();
             }
-            return View(utilizadores);
+            return View(imagens);
         }
 
-        // POST: Utilizadores/Edit/5
+        // POST: Imagens/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Email")] Utilizadores utilizadores)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Legenda")] Imagens imagens)
         {
-            if (id != utilizadores.Id)
+            if (id != imagens.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace Noticia.Controllers
             {
                 try
                 {
-                    _context.Update(utilizadores);
+                    _context.Update(imagens);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UtilizadoresExists(utilizadores.Id))
+                    if (!ImagensExists(imagens.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace Noticia.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(utilizadores);
+            return View(imagens);
         }
 
-        // GET: Utilizadores/Delete/5
+        // GET: Imagens/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace Noticia.Controllers
                 return NotFound();
             }
 
-            var utilizadores = await _context.Utilizadores
+            var imagens = await _context.Imagens
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (utilizadores == null)
+            if (imagens == null)
             {
                 return NotFound();
             }
 
-            return View(utilizadores);
+            return View(imagens);
         }
 
-        // POST: Utilizadores/Delete/5
+        // POST: Imagens/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var utilizadores = await _context.Utilizadores.FindAsync(id);
-            _context.Utilizadores.Remove(utilizadores);
+            var imagens = await _context.Imagens.FindAsync(id);
+            _context.Imagens.Remove(imagens);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UtilizadoresExists(int id)
+        private bool ImagensExists(int id)
         {
-            return _context.Utilizadores.Any(e => e.Id == id);
+            return _context.Imagens.Any(e => e.Id == id);
         }
     }
 }

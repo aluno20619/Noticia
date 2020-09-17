@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 /// </summary>
 /// 
 
-namespace News.Models
+namespace Noticia.Models
 {
 	public class NI
 	{
