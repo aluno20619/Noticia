@@ -51,7 +51,7 @@ namespace Noticia.Controllers
         {
             ViewData["Noticiasid"] = new SelectList(db.Noticias, "Id", "Id");
             ViewData["Topicosid"] = new SelectList(db.Topicos, "Id", "Id");
-            ViewData["TopicosNome"] = new SelectList(db.Topicos, "Id", "Nome");
+            
             return View();
         }
 
@@ -62,6 +62,7 @@ namespace Noticia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Noticiasid,Topicosid")] NT nT)
         {
+            
             if (ModelState.IsValid)
             {
                 db.Add(nT);

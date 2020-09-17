@@ -25,15 +25,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Noticias.Corpo)
+                @Html.DisplayFor(modelItem => item.Noticias.Titulo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Topicos.Id)
+                @Html.DisplayFor(modelItem => item.Topicos.Nome)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { notic = item.Noticiasid, topic = item.Topicosid })) |
+                @Html.ActionLink("Details", "Details", new { notic = item.Noticiasid, topic = item.Topicosid })) |
+                @Html.ActionLink("Delete", "Delete", new { notic = item.Noticiasid, topic = item.Topicosid })}
+               
             </td>
         </tr>
 }

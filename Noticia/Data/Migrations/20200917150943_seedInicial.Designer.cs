@@ -10,8 +10,8 @@ using Noticia.Data;
 namespace Noticia.Data.Migrations
 {
     [DbContext(typeof(NoticiaDbContext))]
-    [Migration("20200915144658_teste")]
-    partial class teste
+    [Migration("20200917150943_seedInicial")]
+    partial class seedInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -272,6 +272,18 @@ namespace Noticia.Data.Migrations
                     b.HasIndex("UtilizadoresidFK");
 
                     b.ToTable("Noticias");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Corpo = "O relatório elaborado pela Segurança Social sobre a situação do lar de Reguengos de Monsaraz foi baseado em informações recolhidas pelos fiscais numa visita realizada a 11 de março, ainda antes de ter sido decretada a situação de emergência e dos problemas de contágio que a covid-19 gerou na instituição./nSegundo avança o jornal Expresso,foi esse documento - que é apenas um relatório e não um inquérito,~como afirmou António Costa - que a ministra da Segurança Social, Ana Mendes Godinho,enviou para a Procuradoria - Geral da República(PGR) numa altura em que a Fundação Maria Inácia Perdigão Vogado da Silva, em Reguengos de Monsaraz, contabilizava já 17 óbitos por covid - 19.",
+                            Data_De_Publicacao = new DateTime(2020, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Resumo = "O documento que a ministra da Segurança Social, Ana Mendes Godinho, enviou à Procuradoria-Geral da República - quando o lar de Reguengos contabilizava já 17 óbitos - foi elaborado com base numa visita técnica feita a 11 de março. António Costa disse ter havido um inquérito, mas houve apenas um relatório a dar conta de que o lar cumpria os requisitos legais em matéria de recursos humanos.",
+                            Titulo = "Relatório sobre lar de Reguengos enviado à PGR foi feito antes da pandemia",
+                            UtilizadoresidFK = 1,
+                            Visivel = true
+                        });
                 });
 
             modelBuilder.Entity("Noticia.Models.Topicos", b =>
@@ -309,6 +321,14 @@ namespace Noticia.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Utilizadores");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "admin@admin.pt",
+                            Nome = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -323,13 +343,13 @@ namespace Noticia.Data.Migrations
                     b.HasOne("Noticia.Models.Imagens", "Imagens")
                         .WithMany("ListaNI")
                         .HasForeignKey("Imagensid")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Noticia.Models.Noticias", "Noticias")
                         .WithMany("ListaNI")
                         .HasForeignKey("Noticiasid")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -338,13 +358,13 @@ namespace Noticia.Data.Migrations
                     b.HasOne("Noticia.Models.Noticias", "Noticias")
                         .WithMany("ListaNT")
                         .HasForeignKey("Noticiasid")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Noticia.Models.Topicos", "Topicos")
                         .WithMany("ListaNT")
                         .HasForeignKey("Topicosid")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -353,7 +373,7 @@ namespace Noticia.Data.Migrations
                     b.HasOne("Noticia.Models.Utilizadores", "Utilizadoresid")
                         .WithMany("ListaNoticias")
                         .HasForeignKey("UtilizadoresidFK")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
