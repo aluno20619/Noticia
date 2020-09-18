@@ -30,14 +30,14 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var utilizadores = await _context.Utilizadores
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (utilizadores == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             return View(utilizadores);
@@ -70,13 +70,13 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var utilizadores = await _context.Utilizadores.FindAsync(id);
             if (utilizadores == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
             return View(utilizadores);
         }
@@ -90,7 +90,7 @@ namespace Noticia.Controllers
         {
             if (id != utilizadores.Id)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             if (ModelState.IsValid)
@@ -104,7 +104,7 @@ namespace Noticia.Controllers
                 {
                     if (!UtilizadoresExists(utilizadores.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("Index");
                     }
                     else
                     {
@@ -121,14 +121,14 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var utilizadores = await _context.Utilizadores
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (utilizadores == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             return View(utilizadores);

@@ -77,15 +77,15 @@ namespace Noticia.Data
                   UtilizadoresidFK = 1
               }
            );
-            modelBuilder.Entity<Topicos>().HasData(
-             new Topicos
-             { Id = 1, Nome = "Covid19" }
-          );
+          //  modelBuilder.Entity<Topicos>().HasData(
+          //   new Topicos
+          //   { Id = 1, Nome = "Covid19" }
+          //);
 
-            modelBuilder.Entity<Imagens>().HasData(
-              new Imagens
-              { Id = 1, Nome = "image.jpg", Legenda = "Fundação Maria Inácia Perdigão Vogado da Silva, em Reguengos de Monsaraz, onde morreram 18 pessoas infetadas com covid-19" }
-           );
+          //  modelBuilder.Entity<Imagens>().HasData(
+          //    new Imagens
+          //    { Id = 1, Nome = "image.jpg", Legenda = "Fundação Maria Inácia, em Reguengos de Monsaraz" }
+          // );
         }
 
         public DbSet<Imagens> Imagens { get; set; }

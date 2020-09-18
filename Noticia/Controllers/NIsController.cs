@@ -31,7 +31,7 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var nI = await _context.NI
@@ -40,7 +40,7 @@ namespace Noticia.Controllers
                 .FirstOrDefaultAsync(m => m.Imagensid == id);
             if (nI == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             return View(nI);
@@ -77,13 +77,13 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var nI = await _context.NI.FindAsync(id);
             if (nI == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
             ViewData["Imagensid"] = new SelectList(_context.Imagens, "Id", "Id", nI.Imagensid);
             ViewData["Noticiasid"] = new SelectList(_context.Noticias, "Id", "Corpo", nI.Noticiasid);
@@ -99,7 +99,7 @@ namespace Noticia.Controllers
         {
             if (id != nI.Imagensid)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             if (ModelState.IsValid)
@@ -113,7 +113,7 @@ namespace Noticia.Controllers
                 {
                     if (!NIExists(nI.Imagensid))
                     {
-                        return NotFound();
+                        return RedirectToAction("Index");
                     }
                     else
                     {
@@ -132,7 +132,7 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var nI = await _context.NI
@@ -141,7 +141,7 @@ namespace Noticia.Controllers
                 .FirstOrDefaultAsync(m => m.Imagensid == id);
             if (nI == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             return View(nI);

@@ -2,7 +2,7 @@
 
 namespace Noticia.Data.Migrations
 {
-    public partial class seedInicial : Migration
+    public partial class fix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

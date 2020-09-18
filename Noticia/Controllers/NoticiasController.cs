@@ -31,15 +31,19 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var noticias = await _context.Noticias
                 .Include(n => n.Utilizadoresid)
+                .Include(v => v.ListaNI)
+                .ThenInclude(a => a.Imagens)
+                .Include(v => v.ListaNT)
+                .ThenInclude(a => a.Topicos)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (noticias == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             return View(noticias);
@@ -74,13 +78,13 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var noticias = await _context.Noticias.FindAsync(id);
             if (noticias == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
             ViewData["UtilizadoresidFK"] = new SelectList(_context.Utilizadores, "Id", "Email", noticias.UtilizadoresidFK);
             return View(noticias);
@@ -95,7 +99,7 @@ namespace Noticia.Controllers
         {
             if (id != noticias.Id)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             if (ModelState.IsValid)
@@ -109,7 +113,7 @@ namespace Noticia.Controllers
                 {
                     if (!NoticiasExists(noticias.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("Index");
                     }
                     else
                     {
@@ -127,7 +131,7 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var noticias = await _context.Noticias
@@ -135,7 +139,7 @@ namespace Noticia.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (noticias == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             return View(noticias);

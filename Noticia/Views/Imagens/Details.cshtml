@@ -1,20 +1,20 @@
 ﻿@model Noticia.Models.Imagens
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes da Imagem";
 }
 
-<h1>Details</h1>
+<h1>Detalhes</h1>
 
 <div>
-    <h4>Imagens</h4>
+    <h4>Imagem</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
+        <dd class="col-sm-10">
+           <img src="~/Imagens/@Model.Nome" alt="fotografia de @Model.Nome" title="@Model.Nome" height="300" />
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Legenda)
@@ -25,6 +25,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Index">Voltar</a>
 </div>

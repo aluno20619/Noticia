@@ -30,14 +30,14 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var topicos = await _context.Topicos
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (topicos == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             return View(topicos);
@@ -70,13 +70,13 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var topicos = await _context.Topicos.FindAsync(id);
             if (topicos == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
             return View(topicos);
         }
@@ -90,7 +90,7 @@ namespace Noticia.Controllers
         {
             if (id != topicos.Id)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             if (ModelState.IsValid)
@@ -104,7 +104,7 @@ namespace Noticia.Controllers
                 {
                     if (!TopicosExists(topicos.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("Index");
                     }
                     else
                     {
@@ -121,14 +121,14 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var topicos = await _context.Topicos
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (topicos == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             return View(topicos);

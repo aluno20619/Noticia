@@ -10,8 +10,8 @@ using Noticia.Data;
 namespace Noticia.Data.Migrations
 {
     [DbContext(typeof(NoticiaDbContext))]
-    [Migration("20200917150943_seedInicial")]
-    partial class seedInicial
+    [Migration("20200917184025_fix")]
+    partial class fix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

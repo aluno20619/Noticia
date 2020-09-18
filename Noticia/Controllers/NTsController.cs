@@ -31,7 +31,7 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var nT = await db.NT
@@ -40,7 +40,7 @@ namespace Noticia.Controllers
                 .FirstOrDefaultAsync(m => m.Topicosid == id);
             if (nT == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             return View(nT);
@@ -79,13 +79,13 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var nT = await db.NT.FindAsync(id);
             if (nT == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
             ViewData["Noticiasid"] = new SelectList(db.Noticias, "Id", "Id", nT.Noticiasid);
             ViewData["Topicosid"] = new SelectList(db.Topicos, "Id", "Id", nT.Topicosid);
@@ -101,7 +101,7 @@ namespace Noticia.Controllers
         {
             if (id != nT.Topicosid)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             if (ModelState.IsValid)
@@ -115,7 +115,7 @@ namespace Noticia.Controllers
                 {
                     if (!NTExists(nT.Topicosid))
                     {
-                        return NotFound();
+                        return RedirectToAction("Index");
                     }
                     else
                     {
@@ -134,7 +134,7 @@ namespace Noticia.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             var nT = await db.NT
@@ -143,7 +143,7 @@ namespace Noticia.Controllers
                 .FirstOrDefaultAsync(m => m.Topicosid == id);
             if (nT == null)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
             return View(nT);
