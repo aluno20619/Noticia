@@ -10,18 +10,43 @@
     <h4>Imagem</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
         <dd class="col-sm-10">
-           <img src="~/Imagens/@Model.Nome" alt="fotografia de @Model.Nome" title="@Model.Nome" height="300" />
+            <img src="~/Imagens/@Model.Nome" alt="fotografia de @Model.Nome" title="@Model.Nome" height="300" />
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Legenda)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Legenda)
         </dd>
+        @if (Model.ListaNI.Count == 0)
+        {
+            <table class="table">
+                <tr>Esta imagem não tem noticias</tr>
+            </table>
+        }
+        else
+        {
+            <table class="table">
+                <tr>Lista de noticias</tr>
+                <tr>
+                    @foreach (var img in Model.ListaNI)
+                    {
+                        <td>
+                            @img.Noticias.Titulo
+                        </td>
+
+                        <td>
+                            @img.Noticias.Data_De_Publicacao
+                        </td>
+
+                    }
+                </tr>
+            </table>
+        }
     </dl>
 </div>
 <div>

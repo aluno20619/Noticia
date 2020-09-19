@@ -75,7 +75,7 @@ namespace Noticia.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UtilizadoresidFK"] = new SelectList(_context.Utilizadores, "Id", "Email", noticias.UtilizadoresidFK);
+            ViewData["UtilizadoresidFK"] = new SelectList(_context.Utilizadores, "Id", "Id", noticias.UtilizadoresidFK);
             return View(noticias);
         }
 
@@ -93,7 +93,7 @@ namespace Noticia.Controllers
             {
                 return RedirectToAction("Index");
             }
-            ViewData["UtilizadoresidFK"] = new SelectList(_context.Utilizadores, "Id", "Email", noticias.UtilizadoresidFK);
+            ViewData["UtilizadoresidFK"] = new SelectList(_context.Utilizadores, "Id", "Id", noticias.UtilizadoresidFK);
             return View(noticias);
         }
 
@@ -130,7 +130,7 @@ namespace Noticia.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UtilizadoresidFK"] = new SelectList(_context.Utilizadores, "Id", "Email", noticias.UtilizadoresidFK);
+            ViewData["UtilizadoresidFK"] = new SelectList(_context.Utilizadores, "Id", "Id", noticias.UtilizadoresidFK);
             return View(noticias);
         }
 

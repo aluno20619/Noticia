@@ -10,19 +10,44 @@
     <h4>Utilizadores</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-    </dl>
+        @if (Model.ListaNoticias.Count == 0)
+        {
+        <table class="table">
+             <tr>Este utilizador não tem noticias</tr>
+        </table>
+        }
+        else
+        {
+        <table class="table">
+            <tr>Lista de noticias</tr>
+            <tr>
+                @foreach (var img in Model.ListaNoticias)
+                {
+                    <td>
+                        @img.Titulo
+                    </td>
+
+                    <td>
+                        @img.Data_De_Publicacao
+                    </td>
+
+                }
+            </tr>
+        </table>
+        }
+</dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
