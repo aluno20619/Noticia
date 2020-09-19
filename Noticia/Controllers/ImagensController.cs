@@ -26,13 +26,13 @@ namespace Noticia.Controllers
             _context = context;
             _ambiente = ambiente;
         }
-        [Authorize]
+        [Authorize(Policy = "readpolicy")]
         // GET: Imagens
         public async Task<IActionResult> Index()
         {
             return View(await _context.Imagens.ToListAsync());
         }
-        [Authorize]
+        [Authorize(Policy = "readpolicy")]
         // GET: Imagens/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -53,7 +53,7 @@ namespace Noticia.Controllers
 
             return View(imagens);
         }
-        [Authorize]
+        [Authorize(Policy = "writepolicy")]
         // GET: Imagens/Create
         public IActionResult Create()
         {
@@ -63,6 +63,7 @@ namespace Noticia.Controllers
         // POST: Imagens/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "writepolicy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,Legenda")] Imagens imagens, IFormFile foto)
@@ -130,7 +131,7 @@ namespace Noticia.Controllers
             }
             return View(imagens);
         }
-        [Authorize]
+        [Authorize(Policy = "writepolicy")]
         // GET: Imagens/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -150,7 +151,7 @@ namespace Noticia.Controllers
         // POST: Imagens/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        [Authorize(Policy = "writepolicy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Legenda")] Imagens imagens)
@@ -183,8 +184,10 @@ namespace Noticia.Controllers
             return View(imagens);
         }
 
-        [Authorize]
+
+
         // GET: Imagens/Delete/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -201,8 +204,9 @@ namespace Noticia.Controllers
 
             return View(imagens);
         }
-        [Authorize]
+
         // POST: Imagens/Delete/5
+        [Authorize(Policy = "writepolicy")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

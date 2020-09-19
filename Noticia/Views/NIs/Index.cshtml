@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Associar imagens a noticias</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Criar novo</a>
 </p>
 <table class="table">
     <thead>
@@ -25,15 +25,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Noticias.Corpo)
+                @Html.DisplayFor(modelItem => item.Noticias.Titulo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Imagens.Id)
+                @Html.DisplayFor(modelItem => item.Imagens.Legenda)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { notic = item.Noticiasid, img = item.Imagensid }) |
+                @Html.ActionLink("Details", "Details", new { notic = item.Noticiasid, img = item.Imagensid })) |
+                @Html.ActionLink("Delete", "Delete", new { notic = item.Noticiasid, img = item.Imagensid }))
             </td>
         </tr>
 }

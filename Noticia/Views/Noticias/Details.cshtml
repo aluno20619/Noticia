@@ -4,24 +4,65 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Detalhes</h1>
 
-<div>
+<dt>
     <h4>Noticias</h4>
     <hr />
     <dl class="row">
+
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Titulo)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Titulo)
         </dd>
+        @if (Model.ListaNT.Count == 0)
+        {
+        }
+        else
+        {
+    <table class="table">
+        <tr>Topicos</tr>
+        <tr>
+            @foreach (var topic in Model.ListaNT)
+            {
+                <td>
+                    @topic.Topicos.Nome
+                </td>
+            }
+        </tr>
+    </table>
+        }
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Resumo)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Resumo)
         </dd>
+
+        @if (Model.ListaNI.Count == 0)
+        {
+        }
+        else
+        {
+    <table class="table">
+        <tr>Imagens</tr>
+        <tr>
+            @foreach (var img in Model.ListaNI)
+            {
+                <td>
+                    <img src="~/Imagens/@img.Imagens.Nome" alt="fotografia de @img.Imagens.Nome" title="@img.Imagens.Nome" height="300" />
+                    <br />
+                    @img.Imagens.Legenda
+                </td>
+            }
+        </tr>
+    </table>
+        }
+
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Corpo)
         </dt>
@@ -48,35 +89,9 @@
         </dd>
 
     </dl>
-    <div>
-        @if (Model.ListaNI.Count == 0)
-        {
 
-            <h4>
-                Não há Imagens a apresentar<br />
-            </h4>
-
-        }
-        else
-        {
-
-            <table class="table">
-                @foreach (var img in Model.ListaNI)
-                {
-                    <tr>
-                        <td>
-                            <img src="~/Imagens/@img.Imagens.Nome" alt="fotografia de @img.Imagens.Nome" title="@img.Imagens.Nome" height="300" />
-                            
-                        </td>     
-                        <td>@img.Imagens.Legenda</td> 
-                    </tr>
-                }
-
-            </table>
-        }
     </div>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
-    <a asp-action="Index">Voltar</a>
-</div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+        <a asp-action="Index">Voltar</a>
+    </div>

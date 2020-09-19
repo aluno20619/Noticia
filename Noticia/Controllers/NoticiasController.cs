@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Noticia.Models;
 using Noticia.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Noticia.Controllers
 {
+   
     public class NoticiasController : Controller
     {
         private readonly NoticiaDbContext _context;
@@ -18,14 +20,16 @@ namespace Noticia.Controllers
         {
             _context = context;
         }
+       
 
+        [AllowAnonymous]
         // GET: Noticias
         public async Task<IActionResult> Index()
         {
             var noticiaDbContext = _context.Noticias.Include(n => n.Utilizadoresid);
             return View(await noticiaDbContext.ToListAsync());
         }
-
+        [Authorize(Policy = "readpolicy")]
         // GET: Noticias/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -50,6 +54,7 @@ namespace Noticia.Controllers
         }
 
         // GET: Noticias/Create
+        [Authorize(Policy = "writepolicy")]
         public IActionResult Create()
         {
             ViewData["UtilizadoresidFK"] = new SelectList(_context.Utilizadores, "Id", "Email");
@@ -59,6 +64,7 @@ namespace Noticia.Controllers
         // POST: Noticias/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "writepolicy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Titulo,Resumo,Corpo,Data_De_Publicacao,Visivel,UtilizadoresidFK")] Noticias noticias)
@@ -74,6 +80,7 @@ namespace Noticia.Controllers
         }
 
         // GET: Noticias/Edit/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,6 +100,7 @@ namespace Noticia.Controllers
         // POST: Noticias/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "writepolicy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Resumo,Corpo,Data_De_Publicacao,Visivel,UtilizadoresidFK")] Noticias noticias)
@@ -127,6 +135,7 @@ namespace Noticia.Controllers
         }
 
         // GET: Noticias/Delete/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -146,6 +155,7 @@ namespace Noticia.Controllers
         }
 
         // POST: Noticias/Delete/5
+        [Authorize(Policy = "writepolicy")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

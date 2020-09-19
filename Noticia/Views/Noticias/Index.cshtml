@@ -4,11 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h1>Noticias</h1>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Criar Nova</a>
 </p>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -18,23 +19,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Resumo)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Corpo)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Data_De_Publicacao)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Visivel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Utilizadoresid)
-            </th>
+
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Titulo)
@@ -42,24 +38,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Resumo)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Corpo)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Data_De_Publicacao)
             </td>
+           
             <td>
-                @Html.DisplayFor(modelItem => item.Visivel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Utilizadoresid.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>

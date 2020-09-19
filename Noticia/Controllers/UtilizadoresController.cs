@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Noticia.Models;
 using Noticia.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Noticia.Controllers
 {
+    [Authorize(Policy ="writepolicy")]
     public class UtilizadoresController : Controller
     {
         private readonly NoticiaDbContext _context;
@@ -20,12 +22,14 @@ namespace Noticia.Controllers
         }
 
         // GET: Utilizadores
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Utilizadores.ToListAsync());
         }
 
         // GET: Utilizadores/Details/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +48,7 @@ namespace Noticia.Controllers
         }
 
         // GET: Utilizadores/Create
+        [Authorize(Policy = "writepolicy")]
         public IActionResult Create()
         {
             return View();
@@ -52,6 +57,7 @@ namespace Noticia.Controllers
         // POST: Utilizadores/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "writepolicy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,Email")] Utilizadores utilizadores)
@@ -66,6 +72,7 @@ namespace Noticia.Controllers
         }
 
         // GET: Utilizadores/Edit/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,6 +91,7 @@ namespace Noticia.Controllers
         // POST: Utilizadores/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "writepolicy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Email")] Utilizadores utilizadores)
@@ -117,6 +125,7 @@ namespace Noticia.Controllers
         }
 
         // GET: Utilizadores/Delete/5
+        [Authorize(Policy ="writepolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,6 +144,7 @@ namespace Noticia.Controllers
         }
 
         // POST: Utilizadores/Delete/5
+        [Authorize(Policy = "writepolicy")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Noticia.Models;
 using Noticia.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Noticia.Controllers
 {
@@ -20,12 +21,14 @@ namespace Noticia.Controllers
         }
 
         // GET: Topicos
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Topicos.ToListAsync());
         }
 
         // GET: Topicos/Details/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +47,7 @@ namespace Noticia.Controllers
         }
 
         // GET: Topicos/Create
+        [Authorize(Policy = "writepolicy")]
         public IActionResult Create()
         {
             return View();
@@ -66,6 +70,7 @@ namespace Noticia.Controllers
         }
 
         // GET: Topicos/Edit/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,6 +89,7 @@ namespace Noticia.Controllers
         // POST: Topicos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Policy = "writepolicy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome")] Topicos topicos)
@@ -116,7 +122,9 @@ namespace Noticia.Controllers
             return View(topicos);
         }
 
+
         // GET: Topicos/Delete/5
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,6 +143,7 @@ namespace Noticia.Controllers
         }
 
         // POST: Topicos/Delete/5
+        [Authorize(Policy = "writepolicy")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
