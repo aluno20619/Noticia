@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
@@ -35,11 +36,9 @@ namespace Noticia.Data
                .HasKey(x => new { x.ProviderKey, x.LoginProvider });
             modelBuilder.Entity<IdentityUserRole<string>>()
                .HasKey(x => new { x.UserId, x.RoleId });
+
             modelBuilder.Entity<NI>()
               .HasKey(x => new { x.Imagensid, x.Noticiasid });
-
-
-
             modelBuilder.Entity<NI>()
                .HasOne<Imagens>(x => x.Imagens)
                .WithMany(c => c.ListaNI)
@@ -61,31 +60,41 @@ namespace Noticia.Data
                 .WithMany(c => c.ListaNT)
                 .HasForeignKey(x => x.Noticiasid);
 
-          //  modelBuilder.Entity<Utilizadores>().HasData(
-          //   new Utilizadores
-          //   { Id = 1, Nome = "Admin", Email = "admin@admin.pt" }
-          //);
-          //  modelBuilder.Entity<Noticias>().HasData(
-          //    new Noticias
-          //    {
-          //        Id = 1,
-          //        Titulo = "Relatório sobre lar de Reguengos enviado à PGR foi feito antes da pandemia",
-          //        Resumo = "O documento que a ministra da Segurança Social, Ana Mendes Godinho, enviou à Procuradoria-Geral da República - quando o lar de Reguengos contabilizava já 17 óbitos - foi elaborado com base numa visita técnica feita a 11 de março. António Costa disse ter havido um inquérito, mas houve apenas um relatório a dar conta de que o lar cumpria os requisitos legais em matéria de recursos humanos.",
-          //        Corpo = "O relatório elaborado pela Segurança Social sobre a situação do lar de Reguengos de Monsaraz foi baseado em informações recolhidas pelos fiscais numa visita realizada a 11 de março, ainda antes de ter sido decretada a situação de emergência e dos problemas de contágio que a covid-19 gerou na instituição." + "/n" + "Segundo avança o jornal Expresso,foi esse documento - que é apenas um relatório e não um inquérito,~como afirmou António Costa - que a ministra da Segurança Social, Ana Mendes Godinho,enviou para a Procuradoria - Geral da República(PGR) numa altura em que a Fundação Maria Inácia Perdigão Vogado da Silva, em Reguengos de Monsaraz, contabilizava já 17 óbitos por covid - 19.",
-          //        Data_De_Publicacao = new DateTime(2020, 2, 2).Date,
-          //        Visivel = true,
-          //        UtilizadoresidFK = 1
-          //    }
-          // );
-          //  modelBuilder.Entity<Topicos>().HasData(
-          //   new Topicos
-          //   { Id = 1, Nome = "Covid19" }
-          //);
+            modelBuilder.Entity<Utilizadores>().HasData(
+             new Utilizadores
+             { Id = 3, Nome = "Admin", Email = "admin@admin.pt" }
+          );
+            modelBuilder.Entity<Noticias>().HasData(
+              new Noticias
+              {
+                  Id = 4,
+                  Titulo = "Relatório sobre lar de Reguengos enviado à PGR foi feito antes da pandemia",
+                  Resumo = "O documento que a ministra da Segurança Social, Ana Mendes Godinho, enviou à Procuradoria-Geral da República - quando o lar de Reguengos contabilizava já 17 óbitos - foi elaborado com base numa visita técnica feita a 11 de março. António Costa disse ter havido um inquérito, mas houve apenas um relatório a dar conta de que o lar cumpria os requisitos legais em matéria de recursos humanos.",
+                  Corpo = "O relatório elaborado pela Segurança Social sobre a situação do lar de Reguengos de Monsaraz foi baseado em informações recolhidas pelos fiscais numa visita realizada a 11 de março, ainda antes de ter sido decretada a situação de emergência e dos problemas de contágio que a covid-19 gerou na instituição." + "/n" + "Segundo avança o jornal Expresso,foi esse documento - que é apenas um relatório e não um inquérito,~como afirmou António Costa - que a ministra da Segurança Social, Ana Mendes Godinho,enviou para a Procuradoria - Geral da República(PGR) numa altura em que a Fundação Maria Inácia Perdigão Vogado da Silva, em Reguengos de Monsaraz, contabilizava já 17 óbitos por covid - 19.",
+                  Data_De_Publicacao = new DateTime(2020, 2, 2).Date,
+                  Visivel = true,
+                  UtilizadoresidFK = 3
+              }
+           );
+            modelBuilder.Entity<Topicos>().HasData(
+                new Topicos { Id = 6, Nome = "Medicina" },
+                new Topicos { Id = 7, Nome = "Covid 19" }
+          );
 
-          //  modelBuilder.Entity<Imagens>().HasData(
-          //    new Imagens
-          //    { Id = 1, Nome = "image.jpg", Legenda = "Fundação Maria Inácia, em Reguengos de Monsaraz" }
-          // );
+            modelBuilder.Entity<Imagens>().HasData(
+              new Imagens
+              { Id = 1010, Nome = "9e377e94-d6fd-48f5-9632-599fca067163.jpg", Legenda = "Covid 19" }
+           );
+            modelBuilder.Entity<NI>().HasData(
+                new NI
+                { Noticiasid=4,Imagensid= 1010 }
+            );
+            modelBuilder.Entity<NT>().HasData(
+                new NT { Noticiasid = 4, Topicosid = 6 },
+                new NT { Noticiasid = 4, Topicosid = 7 }
+            );
+
+
         }
 
         public DbSet<Imagens> Imagens { get; set; }

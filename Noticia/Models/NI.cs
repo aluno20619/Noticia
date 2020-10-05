@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 /// <summary>
-/// Summary description for Class1
+/// Classe intermedia entre imagens e noticias
 /// </summary>
 /// 
 
@@ -12,12 +12,14 @@ namespace Noticia.Models
 	public class NI
 	{
     
+
         public Noticias Noticias { get; set; }
         public Imagens Imagens { get; set; }
 
 
 
         //[ForeignKey(nameof(Noticiaid))]
+
         public int Noticiasid { get; set; }
 
         //[ForeignKey(nameof(Imagemid))]

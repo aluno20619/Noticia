@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Associar topico a Noticia</h1>
+<h1>Associar tópicos a notícias</h1>
 
 <p>
     <a asp-action="Create">Criar novo</a>
@@ -33,7 +33,7 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { notic = item.Noticiasid, topic = item.Topicosid }) |
                 @Html.ActionLink("Details", "Details", new { notic = item.Noticiasid, topic = item.Topicosid }) |
-                @Html.ActionLink("Delete", "Delete", new { notic = item.Noticiasid, topic = item.Topicosid })}
+                @Html.ActionLink("Delete", "Delete", new { notic = item.Noticiasid, topic = item.Topicosid })
                
             </td>
         </tr>

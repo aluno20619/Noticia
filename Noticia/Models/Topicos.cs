@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-/// <summary>
-/// Summary description for Class1
-/// </summary>
-/// 
+
 
 namespace Noticia.Models
 {

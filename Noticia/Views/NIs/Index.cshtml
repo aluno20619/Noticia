@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Associar imagens a noticias</h1>
+<h1>Associar imagens a notícias</h1>
 
 <p>
     <a asp-action="Create">Criar novo</a>
@@ -31,9 +31,9 @@
                 @Html.DisplayFor(modelItem => item.Imagens.Legenda)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { notic = item.Noticiasid, img = item.Imagensid }) |
-                @Html.ActionLink("Details", "Details", new { notic = item.Noticiasid, img = item.Imagensid })) |
-                @Html.ActionLink("Delete", "Delete", new { notic = item.Noticiasid, img = item.Imagensid }))
+                @Html.ActionLink("Edit", "Edit", new {  item.Noticiasid,  item.Imagensid }) |
+                @Html.ActionLink("Details", "Details", new {  item.Noticiasid, item.Imagensid }) |
+                @Html.ActionLink("Delete", "Delete", new {  item.Noticiasid,  item.Imagensid })
             </td>
         </tr>
 }
