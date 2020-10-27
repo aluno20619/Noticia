@@ -32,7 +32,7 @@ namespace Noticia.Controllers
                 this.roleManager = roleManager;
             }
 
-            [AllowAnonymous]
+            [Authorize(Policy = "writepolicy")]
             public IActionResult Index()
             {
                 var roles = roleManager.Roles.ToList();

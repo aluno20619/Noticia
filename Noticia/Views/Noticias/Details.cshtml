@@ -4,94 +4,80 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Detalhes</h1>
 
-<dt>
-    <h4>Noticias</h4>
+
+<h1 align="center" style="color:brown;font-weight:bold; font-size:xx-large"> @Html.DisplayFor(model => model.Titulo)</h1>
+
+<div>
     <hr />
     <dl class="row">
-
-
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-        @if (Model.ListaNT.Count == 0)
-        {
-        }
-        else
-        {
-    <table class="table">
-        <tr>Topicos</tr>
-        <tr>
-            @foreach (var topic in Model.ListaNT)
+            @if (Model.ListaNT.Count == 0) { }
+            else
             {
-                <td>
+                @foreach (var topic in Model.ListaNT)
+                {
+                <dt class="col-sm-2" style="text-align:left;">
                     @topic.Topicos.Nome
-                </td>
+                </dt>
             }
-        </tr>
-    </table>
-        }
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Resumo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Resumo)
-        </dd>
 
-        @if (Model.ListaNI.Count == 0)
-        {
-        }
-        else
-        {
-    <table class="table">
-        <tr>Imagens</tr>
-        <tr>
-            @foreach (var img in Model.ListaNI)
+            }
+            <dt class="col-sm-10">   <br /> </dt>
+            @if (Model.ListaNI.Count == 0) { }
+            else
             {
-                <td>
-                    <img src="~/Imagens/@img.Imagens.Nome" alt="fotografia de @img.Imagens.Nome" title="@img.Imagens.Nome" height="300" />
-                    <br />
-                    @img.Imagens.Legenda
-                </td>
+
+                @foreach (var img in Model.ListaNI)
+                {
+                    <dt class="col-sm-10" style="text-align:center">
+                        <img src="~/Imagens/@img.Imagens.Nome" alt="fotografia de @img.Imagens.Nome" title="@img.Imagens.Nome" height="300" />
+                        <br />
+                        @img.Imagens.Legenda
+                    </dt>
+                }
+
             }
-        </tr>
-    </table>
-        }
+            <dt class="col-sm-10">   <br /> </dt>
+            <dt class="col-sm-10" style="font-size:small;color:dimgrey;">
+                @Html.DisplayFor(model => model.Resumo)
 
+            </dt>
+            <dt class="col-sm-10">   <br /> </dt>
+            <dt class="col-sm-10" style="font-size:medium;color:black;">
+                @Html.DisplayFor(model => model.Corpo)
+            </dt>
+            <dt class="col-sm-10">   <br /> </dt>
+            <dt class="col-sm-10">
+                Data:
+                @Html.DisplayFor(model => model.Data_De_Publicacao)
+            </dt>
+            <dt class="col-sm-10">   <br /> </dt>
+            @if (User.IsInRole("Admin") || User.IsInRole("Gestor"))
+            {
+                <dt class="col-sm-10">
+                    @Html.DisplayNameFor(model => model.Visivel)
+                    @Html.DisplayFor(model => model.Visivel)
+                </dt>
+                <dt class="col-sm-10">   <br /> </dt>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Corpo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Corpo)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Data_De_Publicacao)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Data_De_Publicacao)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Visivel)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Visivel)
-        </dd>
-        <dt class="col-sm-2">
-           Criador
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Utilizadoresid.Nome)
-        </dd>
+                <dt class="col-sm-10">
+                    Criador
+                    @Html.DisplayFor(model => model.Utilizadoresid.Nome)
+                </dt>
 
-    </dl>
-
+            }
+        </dl>
     </div>
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+<div>
+    @if (User.IsInRole("Admin") || User.IsInRole("Gestor"))
+    {
+
+        <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+
+
+    }
+   
         <a asp-action="Index">Voltar</a>
     </div>
+

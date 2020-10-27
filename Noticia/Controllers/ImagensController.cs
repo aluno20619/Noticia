@@ -26,13 +26,13 @@ namespace Noticia.Controllers
             _context = context;
             _ambiente = ambiente;
         }
-        [Authorize(Policy = "readpolicy")]
+        [Authorize(Policy = "writepolicy")]
         // GET: Imagens
         public async Task<IActionResult> Index()
         {
             return View(await _context.Imagens.ToListAsync());
         }
-        [Authorize(Policy = "readpolicy")]
+        [Authorize(Policy = "writepolicy")]
         // GET: Imagens/Details/5
         public async Task<IActionResult> Details(int? id)
         {

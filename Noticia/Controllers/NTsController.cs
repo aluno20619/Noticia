@@ -21,7 +21,7 @@ namespace Noticia.Controllers
         }
 
         // GET: NTs
-        [AllowAnonymous]
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Index()
         {
             var noticiaDbContext = db.NT.Include(n => n.Noticias).Include(n => n.Topicos);
@@ -29,7 +29,7 @@ namespace Noticia.Controllers
         }
 
         // GET: NTs/Details/5
-        [Authorize(Policy = "readpolicy")]
+        [Authorize(Policy = "writepolicy")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
